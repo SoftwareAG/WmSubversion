@@ -1,0 +1,83 @@
+<!--
+This is a convenience build file used only for development build
+and test of the module. IS build WILL NOT invoke this build file.
+-->
+
+<project name="WmSubversion" default="jar">
+
+        <property name="WM_HOME" value="C:/SoftwareAG/webMethods8"/>
+        <property name="dist.file.name" value="WmSubversion.jar"/>
+
+        <path id="class.path">
+                <pathelement path="${WM_HOME}/IntegrationServer/lib/wm-isserver.jar"/>
+                <pathelement path="${WM_HOME}/install/jars/client-ALL-Any.jar"/>
+                <pathelement path="${WM_HOME}/IntegrationServer/packages/WmVCS/code/classes"/>
+        </path>
+
+        <target name="init">
+                <mkdir dir="bin"/>
+        </target>
+
+        <target name="compile" depends="init">
+                <javac srcdir="source" destdir="bin" source="1.5" target="1.5">
+                        <classpath refid="class.path"/>
+                </javac>
+        </target>
+
+        <target name="jar" depends="compile">
+                <jar destfile="${dist.file.name}" basedir="bin"/>
+        </target>
+
+        <target name="deploy" depends="jar">
+    <!--copy file="${dist.file.name}" todir="${WM_HOME}/IntegrationServer/packages/WmSubversion/code/jars"/-->
+                <copy todir="${WM_HOME}/IntegrationServer/packages/WmSubversion/code/source">
+                        <fileset dir="source">
+                                <include name="**/*.java"/>
+                        </fileset>
+                </copy>
+                <copy todir="${WM_HOME}/IntegrationServer/packages/WmSubversion/code/classes">
+                        <fileset dir="bin">
+                                <include name="**/*.class"/>
+                        </fileset>
+                </copy>
+                <echo>Don't forget to reload package!</echo>
+        </target>
+
+        <property name="instrumented.dir" value="instrument"/>
+
+        <property name="cobertura.dir" value="D:/cobertura-1.9" />
+        <path id="cobertura.classpath">
+                <fileset dir="${cobertura.dir}">
+                        <include name="cobertura.jar" />
+                        <include name="lib/**/*.jar" />
+                </fileset>
+        </path>
+
+        <taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
+
+        <target name="cobertura" depends="compile">
+                <delete file="cobertura.ser" />
+                <mkdir dir="${instrumented.dir}"/>
+                <cobertura-instrument todir="${instrumented.dir}">
+                        <fileset dir="bin">
+                                <include name="**/*.class" />
+                        </fileset>
+                </cobertura-instrument>
+                <jar destfile="instrumented-WmSubversion.jar" basedir="${instrumented.dir}"/>
+        </target>
+
+        <property name="coveragereport.dir" value="cobertura-report"/>
+
+        <target name="cobertura-report">
+                <cobertura-report format="html"
+                        datafile="${WM_HOME}/IntegrationServer/bin/cobertura.ser"
+                        destdir="${coveragereport.dir}"
+                        srcdir="source" />
+        </target>
+
+        <target name="clean">
+                <delete dir="bin"/>
+                <delete dir="${instrumented.dir}"/>
+                <delete dir="${coveragereport.dir}"/>
+        </target>
+</project>

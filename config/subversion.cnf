@@ -1,0 +1,23 @@
+# This is an example configuration file for the WmSubversion package.
+
+watt.vcs.type=svn
+
+watt.vcs.metacomment.delete=\
+%value usercomment%%nl%\
+dev_user: %value dev_user%%nl%\
+is_host : %value is_host%%nl%\
+dev_host: %value dev_host%%nl%\
+time    : %value is_time%
+
+watt.vcs.metacomment.checkin=\
+%value usercomment%%nl%\
+dev_user: %value dev_user%%nl%\
+is_host : %value is_host%%nl%\
+dev_host: %value dev_host%%nl%\
+time    : %value is_time%
+
+# timeout value, in milliseconds. if not positive, there is no timeout.
+watt.vcs.command.timeout=-1
+watt.vcs.svn.svnRepositoryLocation=
+watt.vcs.svn.configured=false
+watt.vcs.svn.executable=svn

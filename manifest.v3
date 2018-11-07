@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Values version="2.0">
+  <value name="enabled">yes</value>
+  <value name="system_package">yes</value>
+  <value name="version">@component.full.version@.@build.number@</value>
+  <value name="build"></value>
+  <value name="jvm_version">1.5</value>
+  <value name="publisher">Software AG</value>
+  <value name="description">webMethods Subversion (SVN) Module</value>
+  <record name="startup_services" javaclass="com.wm.util.Values">
+    <null name="wm.server.svn.admin:startup"/>
+  </record>
+  <record name="requires" javaclass="com.wm.util.Values">
+    <value name="WmVCS">@component.version.twodigit.withseparator@</value>
+  </record>
+  <record name="shutdown_services" javaclass="com.wm.util.Values">
+    <null name="wm.server.svn.admin:shutdown"/>
+  </record>
+  <null name="replication_services"/>
+  <value name="listACL">Administrators</value>
+</Values>
+

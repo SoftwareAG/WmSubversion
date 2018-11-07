@@ -1,0 +1,14 @@
+label = 'WmSubversion'
+description = "$project.label package"
+
+sourceSets.main.java.srcDirs = ['code/source'] //TODO :: Remove this after moving to convention based layout
+
+dependencies {
+    providedCompile project(':packages:is-pkg-wmvcs')
+}
+
+pkg {
+    include 'readme.txt'
+}
+
+tasks.syncPkg.enabled = false

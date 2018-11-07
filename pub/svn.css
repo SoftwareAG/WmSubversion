@@ -1,0 +1,29 @@
+.alert
+	{
+	background-color: #EE5555;
+	padding-left: 2px;
+	padding-right: 2px;
+	text-align: center;
+        color: #FFFFFF;
+	}
+
+.alert a
+	{
+	color: white;
+	}
+
+.alert a:hover
+	{
+	color: black;
+	}
+
+.error
+	{
+	background-color: #EE5555; 
+	color: #FFFFFF; 
+	font-weight: bold;
+	letter-spacing: 1px;
+	padding-left: 5px;
+	text-align: left; 
+  	border-bottom: 1px solid #474747;
+	}
